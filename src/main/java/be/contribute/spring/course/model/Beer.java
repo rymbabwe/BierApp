@@ -1,9 +1,11 @@
 package be.contribute.spring.course.model;
 
+import org.hibernate.annotations.Fetch;
+
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "beers")
 public class Beer {
     @Id
     @SequenceGenerator(
@@ -15,6 +17,7 @@ public class Beer {
             strategy = GenerationType.SEQUENCE,
             generator = "beer_sequence"
     )
+    @Column(name = "id")
     private Long id;
     private String name;
     private String beerType;
@@ -23,9 +26,11 @@ public class Beer {
     private String country;
     private String fermentation;
     private String grainType;
-    @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="brewery_id")
-    private Brewery brewery;
+    //@OneToOne(fetch=FetchType.LAZY)
+    //@OneToOne(cascade= CascadeType.ALL)
+    //@JoinColumn(name="brewery_id")
+
+    //private Brewery brewery;
 
     //Constructors
     public Beer() {
@@ -41,7 +46,7 @@ public class Beer {
         this.grainType = grainType;
     }
 
-    public Beer(Long id, String name, String beerType, Double percentage, String description, String country, String fermentation, String grainType, Brewery brewery) {
+    public Beer(Long id, String name, String beerType, Double percentage, String description, String country, String fermentation, String grainType) {
         this.id = id;
         this.name = name;
         this.beerType = beerType;
@@ -50,7 +55,7 @@ public class Beer {
         this.country = country;
         this.fermentation = fermentation;
         this.grainType = grainType;
-        this.brewery = brewery;
+        //this.brewery = brewery;
     }
 
     //Getters en setters
@@ -119,27 +124,13 @@ public class Beer {
         this.grainType = grainType;
     }
 
-    public Brewery getBrewery() {
+    /*public Brewery getBrewery() {
         return brewery;
     }
 
     public void setBrewery(Brewery brewery) {
         this.brewery = brewery;
-    }
+    }*/
 
-    //ToString()
-    @Override
-    public String toString() {
-        return "Beer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", beerType='" + beerType + '\'' +
-                ", percentage=" + percentage +
-                ", description='" + description + '\'' +
-                ", country='" + country + '\'' +
-                ", fermentation='" + fermentation + '\'' +
-                ", grainType='" + grainType + '\'' +
-                ", brewery=" + brewery +
-                '}';
-    }
+
 }

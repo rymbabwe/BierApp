@@ -1,9 +1,10 @@
 package be.contribute.spring.course.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table
+@Table(name = "breweries")
 public class Brewery {
     @Id
     @SequenceGenerator(
@@ -15,42 +16,44 @@ public class Brewery {
             strategy = GenerationType.SEQUENCE,
             generator = "brewery_sequence"
     )
-    @Column(name="brewery_id")
-    private int id;
+    @Column(name = "brewery_id")
+    private Long id;
     private String name;
     private String street;
-    private String number;
+    private String streetNumber;
     private String postalCode;
     private String city;
+    @OneToMany(mappedBy="breweries")
+    private Set<Beer> beers;
 
     //Constructors
     public Brewery() {
     }
 
-    public Brewery(String name, String street, String number, String postalCode, String city) {
+    public Brewery(String name, String street, String streetNumber, String postalCode, String city) {
         this.name = name;
         this.street = street;
-        this.number = number;
+        this.streetNumber = streetNumber;
         this.postalCode = postalCode;
         this.city = city;
     }
 
-    public Brewery(int id, String name, String street, String number, String postalCode, String city) {
+    public Brewery(Long id, String name, String street, String streetNumber, String postalCode, String city) {
         this.id = id;
         this.name = name;
         this.street = street;
-        this.number = number;
+        this.streetNumber = streetNumber;
         this.postalCode = postalCode;
         this.city = city;
     }
 
     //Getters en setters
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -70,12 +73,12 @@ public class Brewery {
         this.street = street;
     }
 
-    public String getNumber() {
-        return number;
+    public String getStreetNumber() {
+        return streetNumber;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
     }
 
     public String getPostalCode() {
@@ -94,17 +97,11 @@ public class Brewery {
         this.city = city;
     }
 
-    //toString()
+    public Set<Beer> getBeers() {
+        return beers;
+    }
 
-    @Override
-    public String toString() {
-        return "Brewery{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", street='" + street + '\'' +
-                ", number='" + number + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", city='" + city + '\'' +
-                '}';
+    public void setBeers(Set<Beer> beers) {
+        this.beers = beers;
     }
 }

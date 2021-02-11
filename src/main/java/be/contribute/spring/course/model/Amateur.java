@@ -82,15 +82,5 @@ public class Amateur {
         this.email = email;
     }
 
-    //toString()
-    @Override
-    public String toString() {
-        return "Amateur{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
+
 }

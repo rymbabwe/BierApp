@@ -1,18 +1,30 @@
 package be.contribute.spring.course.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table
 @IdClass(RatingId.class)
 public class Rating {
     @Id
+    @SequenceGenerator(
+            name = "rating_sequence",
+            sequenceName = "rating_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "rating_sequence"
+    )
+    private int id;
+    @OneToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name = "BEER_ID")
     private Beer beer;
-    @Id
+
+    @OneToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name = "AMATEUR_ID")
     private Amateur amateur;
+
     private boolean liked;
 
     //Constructors
@@ -26,6 +38,10 @@ public class Rating {
     }
 
     //Getters en setters
+    public int getId() {
+        return id;
+    }
+
     public Beer getBeer() {
         return beer;
     }
